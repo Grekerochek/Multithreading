@@ -2,4 +2,5 @@
 <resources>
     <item name="textView" type="id"/>
     <item name="recycler" type="id"/>
+    <item name="containerNew" type="id"/>
 </resources>

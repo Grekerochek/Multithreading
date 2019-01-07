@@ -40,9 +40,16 @@ public class SecondFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ConstraintLayout layout = new ConstraintLayout(this.getContext());
+        layout.setId(R.id.containerNew);
         textView = new TextView(this.getContext());
         textView.setId(R.id.textView);
         layout.addView(textView);
+        ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) textView.getLayoutParams();
+        layoutParams.bottomToBottom = R.id.containerNew;
+        layoutParams.topToTop = R.id.containerNew;
+        layoutParams.startToStart = R.id.containerNew;
+        layoutParams.endToEnd = R.id.containerNew;
+        textView.setLayoutParams(layoutParams);
         return layout;
     }
 
