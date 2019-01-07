@@ -36,13 +36,11 @@ public class SecondFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         asyncTask = new MyAsyncTask();
-        for (int i=0; i<100; i++){
             try {
                 textView.setText(asyncTask.execute().get().toString());
             } catch (ExecutionException | InterruptedException e){
                 e.printStackTrace();
             }
-        }
 
 
     }
