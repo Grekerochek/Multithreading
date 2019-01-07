@@ -1,10 +1,13 @@
 package com.alexander.multithreading;
 
 import android.os.AsyncTask;
+import android.os.Message;
 
 import java.util.Random;
 
-public class MyAsyncTask extends AsyncTask<Void, Void, Integer> {
+public class MyAsyncTask extends AsyncTask<Void, Integer, Integer> {
+
+    public static final int SHOW_INT = 1000;
 
     private Random random;
 
@@ -14,10 +17,11 @@ public class MyAsyncTask extends AsyncTask<Void, Void, Integer> {
 
     @Override
     protected Integer doInBackground(Void... voids) {
+
         try {
-            Thread.sleep(2000);
+                Thread.sleep(2000);
         } catch (InterruptedException e){
-            e.printStackTrace();
+                e.printStackTrace();
         }
         return getRandomInt();
     }
@@ -25,4 +29,11 @@ public class MyAsyncTask extends AsyncTask<Void, Void, Integer> {
     private int getRandomInt(){
         return random.nextInt();
     }
+
+    public void showText(String text){
+        Message msg = new Message();
+        msg.what = SHOW_INT;
+        msg.obj = text;
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.alexander.multithreading;
 
 import android.os.Bundle;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
@@ -14,8 +15,10 @@ import java.util.concurrent.ExecutionException;
 
 public class SecondFragment extends Fragment {
 
-    TextView textView;
-    MyAsyncTask asyncTask;
+    public static final int SHOW_INT = 1000;
+
+    private TextView textView;
+    private MyAsyncTask asyncTask;
 
     public static SecondFragment newInstance(){
         SecondFragment fragment = new SecondFragment();
@@ -36,12 +39,15 @@ public class SecondFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         asyncTask = new MyAsyncTask();
-            try {
-                textView.setText(asyncTask.execute().get().toString());
-            } catch (ExecutionException | InterruptedException e){
-                e.printStackTrace();
-            }
+        try {
+            textView.setText(asyncTask.execute().get().toString());
+        } catch (ExecutionException | InterruptedException e){
+            e.printStackTrace();
+        }
+    }
 
-
+    private void handleUIMessage(Message message){
+        if (message.what == SHOW_INT)
+            textView.setText((String) message.obj);
     }
 }
