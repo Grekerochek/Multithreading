@@ -1,6 +1,8 @@
 package com.alexander.multithreading;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.concurrent.ExecutionException;
 
 public class SecondFragment extends Fragment {
 
@@ -19,6 +20,16 @@ public class SecondFragment extends Fragment {
 
     private TextView textView;
     private MyAsyncTask asyncTask;
+
+    private Handler handler = new Handler(Looper.getMainLooper()) {
+
+        @Override
+        public void handleMessage(Message message) {
+            if (message.what == SHOW_INT) {
+                textView.setText(String.valueOf((int) message.obj));
+            }
+        }
+    };
 
     public static SecondFragment newInstance(){
         SecondFragment fragment = new SecondFragment();
@@ -38,16 +49,7 @@ public class SecondFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        asyncTask = new MyAsyncTask();
-        try {
-            textView.setText(asyncTask.execute().get().toString());
-        } catch (ExecutionException | InterruptedException e){
-            e.printStackTrace();
-        }
-    }
-
-    private void handleUIMessage(Message message){
-        if (message.what == SHOW_INT)
-            textView.setText((String) message.obj);
+        asyncTask = new MyAsyncTask(handler);
+        asyncTask.execute();
     }
 }

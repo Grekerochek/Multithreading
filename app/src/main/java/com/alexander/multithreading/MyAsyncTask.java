@@ -1,6 +1,7 @@
 package com.alexander.multithreading;
 
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.os.Message;
 
 import java.util.Random;
@@ -8,20 +9,25 @@ import java.util.Random;
 public class MyAsyncTask extends AsyncTask<Void, Integer, Integer> {
 
     public static final int SHOW_INT = 1000;
-
+    public static final int DELAY = 2000;
     private Random random;
+    private Handler handler;
 
-    public MyAsyncTask(){
+    public MyAsyncTask(Handler handler){
         random = new Random();
+        this.handler = handler;
     }
 
     @Override
     protected Integer doInBackground(Void... voids) {
 
-        try {
+        for (int i=0; i<100; i++){
+            try {
                 Thread.sleep(2000);
-        } catch (InterruptedException e){
+                showText(getRandomInt());
+            } catch (InterruptedException e){
                 e.printStackTrace();
+            }
         }
         return getRandomInt();
     }
@@ -30,10 +36,12 @@ public class MyAsyncTask extends AsyncTask<Void, Integer, Integer> {
         return random.nextInt();
     }
 
-    public void showText(String text){
+    public void showText(Integer text){
         Message msg = new Message();
         msg.what = SHOW_INT;
         msg.obj = text;
+        handler.sendMessageDelayed(msg, DELAY);
+
     }
 
 }
