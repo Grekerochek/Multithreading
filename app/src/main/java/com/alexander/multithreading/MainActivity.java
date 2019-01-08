@@ -3,6 +3,8 @@ package com.alexander.multithreading;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import java.util.Arrays;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override

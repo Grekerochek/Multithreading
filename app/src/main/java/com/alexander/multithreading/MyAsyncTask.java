@@ -10,6 +10,7 @@ public class MyAsyncTask extends AsyncTask<Void, Integer, Integer> {
 
     public static final int SHOW_INT = 1000;
     public static final int DELAY = 2000;
+
     private Random random;
     private Handler handler;
 
