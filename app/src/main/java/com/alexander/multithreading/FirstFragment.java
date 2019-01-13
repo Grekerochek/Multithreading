@@ -19,7 +19,7 @@ public class FirstFragment extends Fragment implements LoaderManager.LoaderCallb
 
     private Loader<Integer> loader;
 
-    private LinearLayout layout;
+    private View layout;
 
     public static FirstFragment newInstance(){
         FirstFragment fragment = new FirstFragment();

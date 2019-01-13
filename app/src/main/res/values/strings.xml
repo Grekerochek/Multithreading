@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Multithreading</string>
+    <string name="newInt">Новое число!</string>
 </resources>
